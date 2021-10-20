@@ -131,16 +131,19 @@ class _LoginPageState extends State<LoginPage> {
             child:
             Scaffold(
               appBar: AppBar(
-                toolbarHeight: 15,
+                toolbarHeight:50 ,
                 backgroundColor: MyAppColors.secondaryColor,
                 bottom: TabBar(
                   onTap: (index) {
                     // Tab index when user select it, it start from zero
                   },
+
                   tabs: [
                     Tab(child: Text('Se connecter', style: TextStyle(fontSize: 20),),),
                     Tab(child: Text("S'inscrire", style: TextStyle(fontSize: 20),),),
+
                   ],
+
                 ),
               ),
               body: TabBarView(
@@ -155,6 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                               icon: const Icon(Icons.keyboard_arrow_up),
                               iconSize: 24,
                               elevation: 16,
+
                               style:  TextStyle(color: MyAppColors.primaryColor,fontSize: 25),
                               underline: Container(
                                 height: 2,
@@ -178,6 +182,7 @@ class _LoginPageState extends State<LoginPage> {
                           (dropdownValue.compareTo('Bénéficiaire')==0)?
                           _inscriptionEnfant():
                           _inscriptionRepresentant(),
+
                         ],
                       )),
                 ],
