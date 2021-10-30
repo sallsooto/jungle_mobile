@@ -25,6 +25,7 @@ import 'package:jungle/core/service/user-details-service.dart';
 import 'package:jungle/core/util/MyAppColors.dart';
 import 'package:jungle/main.dart';
 import 'package:jungle/ui/list-activites.dart';
+import 'package:jungle/ui/photos-organisme.dart';
 
 Club organismeG;
 final MailService mailService=new MailService();
@@ -146,6 +147,7 @@ class _OrganismeDetailsPageState extends State<OrganismeDetailsPage> {
                 padding: EdgeInsets.all(15),
                 child: TextFormField(
                   controller: nomCtrl,
+                  readOnly: true,
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'Nom';
@@ -173,6 +175,7 @@ class _OrganismeDetailsPageState extends State<OrganismeDetailsPage> {
             padding: EdgeInsets.all(15),
             child: TextFormField(
               controller: adresseCtrl,
+              readOnly: true,
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Adresse';
@@ -201,6 +204,7 @@ class _OrganismeDetailsPageState extends State<OrganismeDetailsPage> {
                 padding: EdgeInsets.all(15),
                 child: TextFormField(
                   controller: codePostalCtrl,
+                  readOnly: true,
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'Code Postal';
@@ -228,6 +232,7 @@ class _OrganismeDetailsPageState extends State<OrganismeDetailsPage> {
             padding: EdgeInsets.all(15),
             child: TextFormField(
               controller: villeCtrl,
+              readOnly: true,
               validator: (value) {
                 if (value.isEmpty) {
                   return "Ville";
@@ -256,6 +261,7 @@ class _OrganismeDetailsPageState extends State<OrganismeDetailsPage> {
                 padding: EdgeInsets.all(15),
                 child: TextFormField(
                   controller: telephoneCtrl,
+                  readOnly: true,
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'Téléphone';
@@ -288,6 +294,7 @@ class _OrganismeDetailsPageState extends State<OrganismeDetailsPage> {
                     sendEmailToOrganismeDialog(context, "Contacter l'organisme", "Question", organismeG.email);
                   },
                   controller: emailCtrl,
+                  readOnly: true,
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'Email';
@@ -316,6 +323,13 @@ class _OrganismeDetailsPageState extends State<OrganismeDetailsPage> {
           ElevatedButton(
             style: ButtonStyle(minimumSize: MaterialStateProperty.all<Size>(Size(150,50))),
             onPressed: () {
+              Navigator.push(
+                  context,
+              MaterialPageRoute(
+                  builder:
+                  (context)=>PhotoOrganisme(club: organismeG,)
+              ));
+            
             },
             child: Text(
                 "Photos"
@@ -392,6 +406,22 @@ class _OrganismeDetailsPageState extends State<OrganismeDetailsPage> {
             );
           });
 
+  void photoClub(Club club){
+  Text(club.id.toString());
+  Text(club.adresse);
+  }
+  Widget photoOranisme(Club club){
+    return Row(
+      children: [
+        Column(
+           children: [
+             Text(club.adresse),
+           ],
+        )
+      ],
+    );
+  }
+  
   void displayDialog(BuildContext context, String title, String text) =>
       showDialog(
           context: context,

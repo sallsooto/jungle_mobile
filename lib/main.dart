@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -5,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jungle/Animation/FadeAnimation.dart';
 import 'package:jungle/core/model/enfant.dart';
@@ -31,6 +33,7 @@ import 'package:jungle/ui/univers-details.dart';
 import './themes/color.dart';
 import 'core/model/representant.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:location/location.dart';
 
 void main() {
   runApp(MyApp());
@@ -125,6 +128,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool optInValue=false;
 
+
+  final Location location = Location();
+  //bool _loading = false;
+  String long;
+  String lat;
+  LocationData _location;
+  StreamSubscription<LocationData> _locationSubscription;
+  String _error;
+  double lg;
+  double lt;
+
+
   @override
   void initState(){
     super.initState();
@@ -133,6 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
     bootstrapGridParameters(
       gutterSize: 30,
     );
+    _getLocation();
   }
 
   @override
@@ -218,6 +234,37 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+
+  //localisation
+
+
+   Future<void> _getLocation() async {
+    _locationSubscription = location.onLocationChanged.handleError(
+        (dynamic err){
+          if(err is PlatformException){
+            setState(() {
+              _error = err.code;
+            });
+          }
+          _locationSubscription?.cancel();
+          setState(() {
+            _locationSubscription=null;
+          });
+        }).listen((LocationData _currentLocation) {
+      setState(() {
+        _location = _currentLocation;
+        _loading = false;
+        long = _location.latitude.toString();
+        lat = _location.longitude.toString();
+        lg = _location.longitude;
+        lt = _location.latitude;
+      });
+    });
+    setState(() {
+
+    });
   }
 
   _chargerUnivers() async {
