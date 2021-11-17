@@ -260,11 +260,13 @@ class _MyHomePageState extends State<MyHomePage> {
         lat = _location.longitude.toString();
         lg = _location.longitude;
         lt = _location.latitude;
+        print('Votre position Actuel: Longitude: '+long+' latitude: '+lat);
       });
-    });
-    setState(() {
 
     });
+   /* setState(() {
+
+    });*/
   }
 
   _chargerUnivers() async {

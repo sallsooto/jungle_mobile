@@ -10,6 +10,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jungle/ui/create-beneficiaire.dart';
 import 'package:jungle/ui/list-beneficiaires.dart';
 import 'package:jungle/ui/login.dart';
+import 'package:jungle/ui/apropos.dart';
 
 class AppDrawer extends StatefulWidget {
 
@@ -93,7 +94,17 @@ class _AppDrawerState extends State<AppDrawer> {
                         builder:
                             (context) =>
                             LoginPage())),
-              })
+              }),
+          _createDrawerItem(
+            icon: Icons.info_outline,
+            text: 'Apropos',
+            onTap: () =>{
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Apropos())
+              )
+             //  Text(' ©️ Groupe et Découverte 2021. Tous droit réservés | Design et Développement par AmaNou Tech')
+            }
+          ),
         ],
       ),
     );
@@ -157,5 +168,7 @@ class _AppDrawerState extends State<AppDrawer> {
       onTap: onTap,
     );
   }
-
+  Widget _appropos(){
+    return new Text(' ©️ Groupe et Découverte 2021. Tous droit réservés | Design et Développement par AmaNou Tech');
+  }
 }
